@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    REGISTRY = 'jaejoong991/flask-app'               // Ganti sesuai Docker Hub ID + nama repo
+    REGISTRY = 'jeffgun/flask-app'               // Ganti sesuai Docker Hub ID + nama repo
     KUBE = credentials('kubeconfig-id')              // Kubeconfig yang sudah kamu upload di Jenkins
     DOCKER_CREDS = 'jeffgun'                 // Credential ID untuk akses Docker Hub
   }
