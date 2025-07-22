@@ -6,7 +6,15 @@ pipeline {
     KUBE = credentials('kubeconfig-id')              // Kubeconfig yang sudah kamu upload di Jenkins
     DOCKER_CREDS = 'jeffgun'                 // Credential ID untuk akses Docker Hub
   }
-
+  
+  stage('Debug Docker Info') {
+  steps {
+    sh 'which docker || echo "docker not found in PATH"'
+    sh 'ls -l /var/run/docker.sock || echo "socket not found"'
+    sh 'groups && whoami'
+  }
+}
+  
   stages {
     stage('Checkout') {
       steps {
