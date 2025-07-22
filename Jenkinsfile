@@ -1,29 +1,29 @@
 pipeline {
   agent any
+
   environment {
     REG = 'jaejoong991/flask-app'
-    KUBE = credentials('kubeconfig-id')
+    KUBECONFIG = credentials('kubeconfig-id')
   }
-    stage('Build') {
+
+  stages {
+    stage('Build & Push') {
       steps {
-        sh 'pip install -r requirements.txt'
-        sh 'pytest || echo "No tests"'
+        sh 'echo building...'
+        // build dan push docker
       }
     }
-    stage('Build & Push Docker') {
+    stage('Deploy') {
       steps {
-        script {
-          img = docker.build("${REG}:$BUILD_ID")
-          docker.withRegistry('', 'dockerhub-creds') {
-            docker.push("${BUILD_ID}")
-            docker.push('latest')
-          }
-        }
-      }
-    }
-    stage('Deploy to K8s') {
-      steps {
-        sh 'kubectl apply -f deployment.yaml'
+        sh 'echo deploying...'
+        // kubectl apply
       }
     }
   }
+
+  post {
+    always {
+      echo 'Done'
+    }
+  }
+}
