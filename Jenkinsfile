@@ -4,10 +4,6 @@ pipeline {
     REG = 'jaejoong991/flask-app'
     KUBE = credentials('kubeconfig-id')
   }
-  stages {
-    stage('Checkout') {
-      steps { git url: '...', credentialsId: 'github-pat', branch: 'main' }
-    }
     stage('Build') {
       steps {
         sh 'pip install -r requirements.txt'
