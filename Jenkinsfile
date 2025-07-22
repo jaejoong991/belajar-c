@@ -19,8 +19,8 @@ pipeline {
         script {
           img = docker.build("${REG}:$BUILD_ID")
           docker.withRegistry('', 'dockerhub-creds') {
-            img.push()
-            img.push('latest')
+            docker.push("${BUILD_ID}")
+            docker.push('latest')
           }
         }
       }
