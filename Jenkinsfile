@@ -30,8 +30,8 @@ pipeline {
           docker.withRegistry('https://registry.hub.docker.com', DOCKER_CREDS) {
             dockerImage.push()
             dockerImage.push('latest')
-            sh "kubectl --kubeconfig=\"$KUBECONFIG_FILE\" apply -f deployment.yaml"
-            sh "kubectl rollout status deployment/flask-app --kubeconfig=\"$KUBECONFIG_FILE\""
+            ./kubectl --kubeconfig=\"$KUBECONFIG_FILE\" apply -f deployment.yaml
+            ./kubectl rollout status deployment/flask-app --kubeconfig=\"$KUBECONFIG_FILE\"
 
           }
         }
