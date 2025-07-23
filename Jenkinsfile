@@ -46,6 +46,7 @@ pipeline {
         }
       }
     }
+  }
 
   post {
     success { echo '🎉 Pipeline selesai dengan sukses!' }
