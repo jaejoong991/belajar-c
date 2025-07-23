@@ -38,7 +38,11 @@ pipeline {
     stage('Deploy to K8s') {
       steps {
         withCredentials([file(credentialsId: 'kubeconfig-id', variable: 'KUBECONFIG_FILE')]) {
-          sh 'kubectl --kubeconfig "$KUBECONFIG_FILE" apply -f deployment.yaml'
+          sh '''
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x kubectl
+            ./kubectl --kubeconfig "$KUBECONFIG_FILE" apply -f deployment.yaml
+           ''' 
         }
       }
     }
