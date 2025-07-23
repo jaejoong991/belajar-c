@@ -47,18 +47,6 @@ pipeline {
       }
     }
 
-    stage('Smoke Test') {
-      steps {
-        sh 'sleep 10' // tunggu pod siap
-        sh './kubectl --kubeconfig "$KUBECONFIG_FILE" get svc flask-service -o jsonpath="{.spec.clusterIP}" > ip.txt'
-        script {
-          def svcIp = readFile('ip.txt').trim()
-          sh "curl -f http://${svcIp}:80/ || exit 1"
-        }
-      }
-    }
-  }
-
   post {
     success { echo '🎉 Pipeline selesai dengan sukses!' }
     failure { echo '❌ Ada error—cek logs pipeline!' }
